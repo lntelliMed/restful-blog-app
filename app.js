@@ -63,6 +63,18 @@ app.post("/blogs", function(req, res){
     });
 });
 
+app.get("/blogs/:id", function(req, res){
+    // res.send("Show Page");
+    Blog.findById(req.params.id, function(err, foundBlog){
+        if(err){
+            console.log(err);
+            res.redirect("/blogs");
+        } else {
+            res.render("show", {blog: foundBlog});
+        }
+    });
+});
+
 app.listen(3000, "localhost", function(){
     console.log("Server is running!");
 });
