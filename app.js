@@ -6,8 +6,12 @@ var bodyParser          = require("body-parser"),
     app                 = express();
 
 mongoose.Promise = global.Promise;    
+
+var url = process.env.DATABASEURL || "mongodb://localhost/restful_blog_app";
+
 // mongoose.connect("mongodb://localhost/restful_blog_app");
-mongoose.connect("mongodb://localhost/restful_blog_app", {useMongoClient: true});
+//MongoLab URL: mongodb://blog:app@ds231245.mlab.com:31245/restful_blog_app
+mongoose.connect(url, {useMongoClient: true});
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -117,6 +121,6 @@ app.delete("/blogs/:id", function(req, res){
     });
 });
 
-app.listen(3000, "localhost", function(){
+app.listen(process.env.PORT || 3000, "localhost", function(){
     console.log("Server is running!");
 });
